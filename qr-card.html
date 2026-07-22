@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samrat Tawa Fry - QR Code Generator</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F5D97A;
+      --gold-dark: #A07D10;
+      --black: #080808;
+      --white: #fff;
+      --gray: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1208 100%);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--white);
+      padding: 20px
+    }
+
+    .setup-panel {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(212, 175, 55, .15);
+      border-radius: 24px;
+      padding: 36px;
+      backdrop-filter: blur(20px)
+    }
+
+    .setup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-bottom: 8px
+    }
+
+    .setup-subtitle {
+      text-align: center;
+      color: var(--gray);
+      font-size: 13px;
+      margin-bottom: 28px
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 28px
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(212, 175, 55, .1);
+      border-radius: 14px;
+      padding: 16px
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px
+    }
+
+    .step-content h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px
+    }
+
+    .step-content p {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.6
+    }
+
+    .step-link {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600
+    }
+
+    .step-link:hover {
+      text-decoration: underline
+    }
+
+    .url-section label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px
+    }
+
+    .url-row {
+      display: flex;
+      gap: 10px
+    }
+
+    .url-input {
+      flex: 1;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(212, 175, 55, .25);
+      border-radius: 12px;
+      padding: 13px 18px;
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s
+    }
+
+    .url-input::placeholder {
+      color: #555
+    }
+
+    .url-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, .1)
+    }
+
+    .gen-btn {
+      padding: 13px 24px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border: none;
+      border-radius: 12px;
+      color: #000;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .3s;
+      letter-spacing: .5px
+    }
+
+    .gen-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, .4)
+    }
+
+    .gen-btn:active {
+      transform: scale(.97)
+    }
+
+    .style-section {
+      margin-top: 20px
+    }
+
+    .style-section label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px
+    }
+
+    .style-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .style-btn {
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(212, 175, 55, .25);
+      background: rgba(255, 255, 255, .03);
+      color: rgba(255, 255, 255, .6);
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .3s;
+      letter-spacing: .3px
+    }
+
+    .style-btn.active {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-color: var(--gold);
+      color: #000;
+      font-weight: 700
+    }
+
+    .style-btn:hover:not(.active) {
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    .preview-area {
+      max-width: 680px;
+      margin: 0 auto;
+      display: none
+    }
+
+    .preview-area.visible {
+      display: block
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px
+    }
+
+    .preview-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--gold)
+    }
+
+    .print-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border: none;
+      border-radius: 12px;
+      color: #000;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .3s
+    }
+
+    .print-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, .4)
+    }
+
+    .card-table-tent {
+      background: linear-gradient(160deg, #0d0d0d 0%, #1a1208 100%);
+      border: 2px solid rgba(212, 175, 55, .3);
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 380px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .8), 0 0 0 1px rgba(212, 175, 55, .08)
+    }
+
+    .tent-top {
+      background: linear-gradient(135deg, var(--gold) 0%, #8B6914 100%);
+      padding: 20px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .tent-top::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, .15) 0%, transparent 60%)
+    }
+
+    .tent-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #000;
+      letter-spacing: 2px;
+      position: relative
+    }
+
+    .tent-tagline {
+      font-size: 9px;
+      color: rgba(0, 0, 0, .7);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      position: relative;
+      margin-top: 2px
+    }
+
+    .tent-body {
+      padding: 28px 24px;
+      text-align: center;
+      position: relative
+    }
+
+    .tent-body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 24px;
+      right: 24px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, .4), transparent)
+    }
+
+    .qr-wrapper {
+      display: inline-flex;
+      padding: 12px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .5);
+      margin-bottom: 20px
+    }
+
+    .scan-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 4px
+    }
+
+    .scan-sub {
+      font-size: 10px;
+      color: var(--gray);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px
+    }
+
+    .tent-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 16px
+    }
+
+    .tent-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, .25), transparent)
+    }
+
+    .tent-divider-gem {
+      color: var(--gold);
+      font-size: 8px
+    }
+
+    .tent-badges {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .tent-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      color: var(--gray);
+      letter-spacing: .5px
+    }
+
+    .tent-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%
+    }
+
+    .dot-g {
+      background: #2ECC71;
+      box-shadow: 0 0 4px #2ECC71
+    }
+
+    .dot-r {
+      background: var(--red, #E84545);
+      box-shadow: 0 0 4px #E84545
+    }
+
+    .tent-addr {
+      font-size: 9px;
+      color: #555;
+      margin-top: 12px;
+      letter-spacing: .5px;
+      line-height: 1.6
+    }
+
+    .tent-bottom {
+      background: rgba(212, 175, 55, .06);
+      border-top: 1px solid rgba(212, 175, 55, .1);
+      padding: 10px 24px;
+      text-align: center;
+      font-size: 8px;
+      color: #444;
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .card-royal {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 380px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .8)
+    }
+
+    .royal-header {
+      background: linear-gradient(135deg, #0B0B0B 0%, #1A1208 100%);
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .royal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent)
+    }
+
+    .royal-header-ornament {
+      font-size: 11px;
+      color: rgba(212, 175, 55, .5);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px
+    }
+
+    .royal-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px
+    }
+
+    .royal-tagline {
+      font-size: 9px;
+      color: rgba(212, 175, 55, .5);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 6px
+    }
+
+    .royal-body {
+      padding: 24px;
+      text-align: center;
+      background: #fdf8f0
+    }
+
+    .royal-scan-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      color: #8B6914;
+      margin-bottom: 14px;
+      font-style: italic
+    }
+
+    .royal-qr {
+      display: inline-flex;
+      padding: 10px;
+      background: #fff;
+      border: 2px solid rgba(212, 175, 55, .3);
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .15)
+    }
+
+    .royal-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, .4), transparent);
+      margin: 18px 0
+    }
+
+    .royal-footer-text {
+      font-size: 10px;
+      color: #999;
+      line-height: 1.7
+    }
+
+    .royal-badges-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 14px
+    }
+
+    .royal-badge {
+      background: linear-gradient(135deg, #0B0B0B, #1A1208);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, .3);
+      border-radius: 100px;
+      padding: 5px 12px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .royal-footer {
+      background: linear-gradient(135deg, #0B0B0B, #1A1208);
+      padding: 12px 24px;
+      text-align: center
+    }
+
+    .royal-footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      color: rgba(212, 175, 55, .6);
+      letter-spacing: 2px
+    }
+
+    .card-minimal {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 280px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .8)
+    }
+
+    .min-top {
+      background: #0B0B0B;
+      padding: 20px;
+      text-align: center
+    }
+
+    .min-crown {
+      font-size: 24px;
+      margin-bottom: 8px
+    }
+
+    .min-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 2px
+    }
+
+    .min-body {
+      padding: 20px;
+      text-align: center;
+      background: #fff
+    }
+
+    .min-label {
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .min-qr {
+      display: inline-flex;
+      padding: 8px;
+      background: #fff;
+      border: 1.5px solid #eee;
+      border-radius: 8px
+    }
+
+    .min-tagline {
+      font-size: 9px;
+      color: #bbb;
+      margin-top: 12px;
+      letter-spacing: 1px
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0
+      }
+
+      .setup-panel,
+      .preview-header,
+      .no-print {
+        display: none !important
+      }
+
+      .preview-area {
+        display: block !important;
+        margin: 0;
+        padding: 0
+      }
+
+      .card-table-tent,
+      .card-royal,
+      .card-minimal {
+        box-shadow: none;
+        margin: 0 auto
+      }
+
+      @page {
+        margin: 10mm
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="setup-panel no-print">
+    <div class="setup-title">&#x1F4F1; QR Code Generator</div>
+    <p class="setup-subtitle">Generate a professional QR code card for your restaurant menu</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Host your menu for free (30 seconds)</h3>
+          <p>Go to <a class="step-link" href="https://app.netlify.com/drop" target="_blank">app.netlify.com/drop</a> and
+            <strong>drag and drop</strong> your <strong>Samrat Menu folder</strong> onto the page. You'll get a free URL
+            like <em>wonderful-menu-abc123.netlify.app</em>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Paste your URL below</h3>
+          <p>Copy the URL Netlify gives you and paste it in the box below, then click Generate QR Code.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Print your card</h3>
+          <p>Choose your card style, click Print, and place it on every table. Customers scan the QR and your premium
+            menu opens instantly on their phone.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="url-section">
+      <label>Your Menu URL</label>
+      <div class="url-row">
+        <input class="url-input" id="urlInput" type="url" placeholder="https://your-menu.netlify.app" value="">
+        <button class="gen-btn" onclick="generateQR()">Generate QR</button>
+      </div>
+    </div>
+
+    <div class="style-section">
+      <label>Card Style</label>
+      <div class="style-btns">
+        <button class="style-btn active" onclick="setStyle('tent',this)">&#x1F3D5; Table Tent (Dark)</button>
+        <button class="style-btn" onclick="setStyle('royal',this)">&#x1F451; Royal Card (White)</button>
+        <button class="style-btn" onclick="setStyle('minimal',this)">&#x2B1C; Minimal</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-area" id="previewArea">
+    <div class="preview-header no-print">
+      <div class="preview-label">&#x1F3A8; Preview</div>
+      <button class="print-btn" onclick="window.print()">&#x1F5A8; Print Card</button>
+    </div>
+    <div id="cardContainer"></div>
+  </div>
+
+  <script>
+    var currentStyle = 'tent';
+
+    function setStyle(style, btn) {
+      currentStyle = style;
+      document.querySelectorAll('.style-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      if (document.getElementById('previewArea').classList.contains('visible')) {
+        generateQR();
+      }
+    }
+
+    function generateQR() {
+      var url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert('Please enter your menu URL first.');
+        return;
+      }
+      if (!url.startsWith('http')) {
+        url = 'https://' + url;
+        document.getElementById('urlInput').value = url;
+      }
+
+      var container = document.getElementById('cardContainer');
+      container.innerHTML = getCardHTML(currentStyle);
+      document.getElementById('previewArea').classList.add('visible');
+
+      var qrEl = document.getElementById('qrcode');
+      qrEl.innerHTML = '';
+      var size = currentStyle === 'minimal' ? 160 : 200;
+      new QRCode(qrEl, {
+        text: url,
+        width: size,
+        height: size,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('previewArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function getCardHTML(style) {
+      if (style === 'tent') return getTentHTML();
+      if (style === 'royal') return getRoyalHTML();
+      return getMinimalHTML();
+    }
+
+    function getTentHTML() {
+      return `<div class="card-table-tent">
+    <div class="tent-top">
+      <div class="tent-brand">SAMRAT TAWA FRY</div>
+      <div class="tent-tagline">Premium Halal Non-Veg Restaurant</div>
+    </div>
+    <div class="tent-body">
+      <div class="scan-text">Scan to View Our Menu</div>
+      <div class="scan-sub">Point your camera at the QR code</div>
+      <div class="qr-wrapper"><div id="qrcode"></div></div>
+      <div class="tent-divider">
+        <div class="tent-divider-line"></div>
+        <span class="tent-divider-gem">&#10022;</span>
+        <div class="tent-divider-line"></div>
+      </div>
+      <div class="tent-badges">
+        <div class="tent-badge"><div class="tent-badge-dot dot-g"></div>Halal Certified</div>
+        <div class="tent-badge" style="color:#D4AF37">&#x1F451; Party Orders Welcome</div>
+        <div class="tent-badge"><div class="tent-badge-dot dot-r"></div>Non-Veg Specialist</div>
+      </div>
+      <div class="tent-addr">Beside Indian Oil Pump, Sansroad &middot; Ta. Karjan, Di. Vadodara</div>
+    </div>
+    <div class="tent-bottom">&#9733; The Real Taste of Nonveg Amdawadi &#9733;</div>
+  </div>`;
+    }
+
+    function getRoyalHTML() {
+      return `<div class="card-royal">
+    <div class="royal-header">
+      <div class="royal-header-ornament">&#10022; &nbsp; Premium Restaurant &nbsp; &#10022;</div>
+      <div class="royal-brand">SAMRAT TAWA FRY</div>
+      <div class="royal-tagline">The Real Taste of Nonveg &middot; Amdawadi</div>
+    </div>
+    <div class="royal-body">
+      <div class="royal-scan-label">&#x1F4F1; Scan to open our digital menu</div>
+      <div class="royal-qr"><div id="qrcode"></div></div>
+      <div class="royal-divider"></div>
+      <div class="royal-footer-text">
+        Beside Indian Oil Pump, Sansroad<br>Ta. Karjan, Di. Vadodara
+      </div>
+      <div class="royal-badges-row">
+        <span class="royal-badge">&#x2714; Halal</span>
+        <span class="royal-badge">&#x1F451; Party Orders</span>
+        <span class="royal-badge">&#x2728; Premium</span>
+      </div>
+    </div>
+    <div class="royal-footer">
+      <div class="royal-footer-logo">SAMRAT TAWA FRY</div>
+    </div>
+  </div>`;
+    }
+
+    function getMinimalHTML() {
+      return `<div class="card-minimal">
+    <div class="min-top">
+      <div class="min-crown">&#x1F451;</div>
+      <div class="min-brand">SAMRAT TAWA FRY</div>
+    </div>
+    <div class="min-body">
+      <div class="min-label">Scan for Menu</div>
+      <div class="min-qr"><div id="qrcode"></div></div>
+      <div class="min-tagline">The Real Taste of Nonveg &middot; Amdawadi</div>
+    </div>
+  </div>`;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Samrat Tawa Fry - Premium Digital Menu</title>
+  <meta name="description"
+    content="The Real Taste of Non-Veg. Samrat Tawa Fry, Amdawadi. Halal Certified Premium Restaurant by Adil & MMD.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F5D97A;
+      --gold-dark: #A07D10;
+      --gold-glow: rgba(212, 175, 55, .25);
+      --black: #080808;
+      --white: #FFF;
+      --off-white: #E8E8E8;
+      --gray: #777;
+      --gray2: #444;
+      --red: #E84545;
+      --green: #2ECC71;
+      --glass-bg: rgba(255, 255, 255, .03);
+      --glass-border: rgba(212, 175, 55, .12)
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity .6s ease, visibility .6s ease
+    }
+
+    #loader.out {
+      opacity: 0;
+      visibility: hidden
+    }
+
+    .loader-crown {
+      font-size: 64px;
+      animation: crownFloat 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px var(--gold))
+    }
+
+    @keyframes crownFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1)
+      }
+
+      50% {
+        transform: translateY(-8px) scale(1.05)
+      }
+    }
+
+    .loader-title {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 3px;
+      text-align: center
+    }
+
+    .loader-sub {
+      font-size: 11px;
+      color: rgba(212, 175, 55, .5);
+      letter-spacing: 4px;
+      text-transform: uppercase
+    }
+
+    .loader-track {
+      width: 160px;
+      height: 2px;
+      background: rgba(212, 175, 55, .15);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .loader-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+      border-radius: 2px;
+      animation: loadFill 1.8s cubic-bezier(.4, 0, .2, 1) forwards
+    }
+
+    @keyframes loadFill {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .ambient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(ellipse 60% 40% at 20% 10%, rgba(212, 175, 55, .06), transparent 70%), radial-gradient(ellipse 50% 50% at 80% 90%, rgba(212, 175, 55, .04), transparent 70%)
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      padding: 50px 24px 36px;
+      text-align: center;
+      overflow: hidden
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-glow), var(--gold-dark), var(--gold-glow), transparent)
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(212, 175, 55, .3);
+      background: rgba(212, 175, 55, .07);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      backdrop-filter: blur(10px)
+    }
+
+    .hero-name {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(38px, 10vw, 72px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 3px;
+      background: linear-gradient(155deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 4px 30px rgba(212, 175, 55, .3));
+      animation: titleReveal 1s ease 1.8s both
+    }
+
+    @keyframes titleReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .hero-owners {
+      font-family: "Playfair Display", serif;
+      font-size: 14px;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      margin-top: 6px;
+      animation: titleReveal 1s ease 1.9s both
+    }
+
+    .hero-tagline {
+      font-size: 11px;
+      color: rgba(212, 175, 55, .6);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      animation: titleReveal 1s ease 2s both
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 20px auto;
+      max-width: 220px;
+      animation: titleReveal 1s ease 2.1s both
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, .4), transparent)
+    }
+
+    .divider-gem {
+      font-size: 10px;
+      color: var(--gold)
+    }
+
+    .hero-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      animation: titleReveal 1s ease 2.2s both
+    }
+
+    .h-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray);
+      letter-spacing: 1px
+    }
+
+    .h-badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%
+    }
+
+    .dot-halal {
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green)
+    }
+
+    .dot-party {
+      background: var(--gold);
+      box-shadow: 0 0 6px var(--gold)
+    }
+
+    .dot-addr {
+      background: #6C8EFF;
+      box-shadow: 0 0 6px #6C8EFF
+    }
+
+    .ig-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 18px rgba(220, 39, 67, .35);
+      transition: transform .3s, box-shadow .3s;
+      animation: titleReveal 1s ease 2.3s both
+    }
+
+    .ig-hero-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(220, 39, 67, .5)
+    }
+
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 8, 8, .97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(212, 175, 55, .1);
+      padding: 10px 0
+    }
+
+    .cat-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 16px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth
+    }
+
+    .cat-scroll::-webkit-scrollbar {
+      display: none
+    }
+
+    .cat-btn {
+      flex-shrink: 0;
+      padding: 9px 18px;
+      border-radius: 100px;
+      border: 1px solid rgba(212, 175, 55, .2);
+      background: rgba(255, 255, 255, .02);
+      color: rgba(255, 255, 255, .5);
+      font-family: "Poppins", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .3s cubic-bezier(.4, 0, .2, 1);
+      white-space: nowrap;
+      user-select: none;
+      letter-spacing: .3px
+    }
+
+    .cat-btn:hover {
+      border-color: rgba(212, 175, 55, .5);
+      color: var(--gold);
+      background: rgba(212, 175, 55, .06)
+    }
+
+    .cat-btn.active {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-color: var(--gold);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(212, 175, 55, .45)
+    }
+
+    .search-wrap {
+      position: relative;
+      z-index: 2;
+      padding: 14px 14px 0;
+      max-width: 780px;
+      margin: 0 auto
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(212, 175, 55, .15);
+      border-radius: 12px;
+      padding: 12px 18px 12px 44px;
+      color: var(--white);
+      font-family: "Poppins", sans-serif;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s
+    }
+
+    .search-input::placeholder {
+      color: var(--gray2)
+    }
+
+    .search-input:focus {
+      border-color: rgba(212, 175, 55, .4);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, .08)
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-size: 16px;
+      pointer-events: none
+    }
+
+    #searchResults {
+      display: none;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 14px 14px 0;
+      position: relative;
+      z-index: 2
+    }
+
+    #searchResults.visible {
+      display: block;
+      animation: sectionIn .3s ease
+    }
+
+    .menu-main {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 28px 14px 32px
+    }
+
+    .cat-section {
+      display: none
+    }
+
+    .cat-section.active {
+      display: block;
+      animation: sectionIn .4s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    @keyframes sectionIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .cat-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px
+    }
+
+    .cat-heading-text {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .cat-heading-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(212, 175, 55, .4), transparent)
+    }
+
+    .sub-cat-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 24px 0 12px
+    }
+
+    .sub-cat-label::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+      border-radius: 2px;
+      flex-shrink: 0
+    }
+
+    .sub-cat-label span {
+      font-family: "Playfair Display", serif;
+      font-size: 14px;
+      font-style: italic;
+      color: rgba(212, 175, 55, .65);
+      letter-spacing: 1px;
+      white-space: nowrap
+    }
+
+    .sub-cat-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(212, 175, 55, .2), transparent)
+    }
+
+    .item-count {
+      font-size: 11px;
+      color: var(--gray);
+      text-align: right;
+      margin-bottom: 10px
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px
+    }
+
+    @media(min-width:560px) {
+      .items-grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    .menu-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: all .35s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, .06), transparent 60%);
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .menu-card:hover::before {
+      opacity: 1
+    }
+
+    .menu-card:hover {
+      border-color: rgba(212, 175, 55, .4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(212, 175, 55, .14), 0 4px 16px rgba(0, 0, 0, .5)
+    }
+
+    .menu-card:active {
+      transform: scale(.97);
+      box-shadow: none
+    }
+
+    .menu-card.special {
+      border-color: rgba(212, 175, 55, .3);
+      background: rgba(212, 175, 55, .04)
+    }
+
+    .menu-card.special::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent)
+    }
+
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 1;
+      min-width: 0
+    }
+
+    .type-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .type-icon.veg {
+      border-color: var(--green)
+    }
+
+    .type-icon.nonveg {
+      border-color: var(--red)
+    }
+
+    .type-icon.veg::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green)
+    }
+
+    .type-icon.nonveg::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 7px solid var(--red);
+      margin-top: 1px
+    }
+
+    .card-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .card-name {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--off-white);
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 5px;
+      margin-top: 4px
+    }
+
+    .badge-special {
+      font-size: 9px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #000;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .card-price {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+      white-space: nowrap
+    }
+
+    .card-price .rupee {
+      font-family: "Poppins", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(212, 175, 55, .6)
+    }
+
+    .card-price.market {
+      font-family: "Poppins", sans-serif;
+      font-size: 11px;
+      color: var(--gray);
+      font-style: italic;
+      text-align: right
+    }
+
+    .hf-price {
+      text-align: right;
+      flex-shrink: 0
+    }
+
+    .hf-labels {
+      font-size: 9px;
+      color: var(--gray);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 3px
+    }
+
+    .hf-vals {
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .hf-val {
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold)
+    }
+
+    .hf-sep {
+      font-size: 11px;
+      color: rgba(212, 175, 55, .3)
+    }
+
+    .ig-floating-widget {
+      position: fixed;
+      right: 18px;
+      bottom: 90px;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      animation: floatBounce 3s ease-in-out infinite
+    }
+
+    @keyframes floatBounce {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    .ig-floating-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(220, 39, 67, .45), 0 0 0 2px rgba(255, 255, 255, .2);
+      transition: transform .3s, box-shadow .3s
+    }
+
+    .ig-floating-widget:hover .ig-floating-icon {
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(220, 39, 67, .6), 0 0 0 3px var(--gold)
+    }
+
+    .ig-floating-label {
+      background: rgba(15, 15, 15, .9);
+      border: 1px solid rgba(212, 175, 55, .3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      white-space: nowrap;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, .5);
+      transition: opacity .3s
+    }
+
+    .footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 44px 24px 60px;
+      border-top: 1px solid rgba(212, 175, 55, .08)
+    }
+
+    .footer-logo {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px
+    }
+
+    .footer-owners {
+      font-family: "Playfair Display", serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 12px;
+      letter-spacing: 1px
+    }
+
+    .footer-addr {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.8
+    }
+
+    .footer-ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(220, 39, 67, .4);
+      color: var(--white);
+      font-size: 11px;
+      text-decoration: none;
+      transition: all .3s
+    }
+
+    .footer-ig-link:hover {
+      background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+      border-color: transparent;
+      transform: translateY(-2px)
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, .2);
+      font-style: italic;
+      line-height: 1.7;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .footer-credits {
+      margin-top: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(212, 175, 55, .7);
+      letter-spacing: 2px;
+      text-transform: uppercase
+    }
+
+    #scrollTop {
+      position: fixed;
+      bottom: 22px;
+      right: 20px;
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border: none;
+      color: #000;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, .5);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: transform .3s, opacity .3s;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    #scrollTop.show {
+      transform: translateY(0);
+      opacity: 1
+    }
+
+    #scrollTop:active {
+      transform: scale(.9)
+    }
+
+    /* ── Business Hours Status Widget ── */
+    .status-widget {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      animation: titleReveal 1s ease 2.4s both
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: all .4s ease
+    }
+
+    .status-badge.open {
+      background: rgba(46, 204, 113, .12);
+      border: 1.5px solid rgba(46, 204, 113, .5);
+      color: #2ecc71;
+      box-shadow: 0 0 18px rgba(46, 204, 113, .25), inset 0 0 12px rgba(46, 204, 113, .06)
+    }
+
+    .status-badge.closed {
+      background: rgba(232, 69, 69, .1);
+      border: 1.5px solid rgba(232, 69, 69, .4);
+      color: #e84545;
+      box-shadow: 0 0 12px rgba(232, 69, 69, .15)
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .status-dot.dot-open {
+      background: #2ecc71;
+      box-shadow: 0 0 0 0 rgba(46, 204, 113, .6);
+      animation: pulseOpen 1.6s ease-in-out infinite
+    }
+
+    .status-dot.dot-closed {
+      background: #e84545;
+      box-shadow: none
+    }
+
+    @keyframes pulseOpen {
+      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, .7) }
+      60% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0) }
+      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0) }
+    }
+
+    .status-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .5px;
+      text-align: center
+    }
+
+    .status-sub.open-msg {
+      color: rgba(46, 204, 113, .75)
+    }
+
+    .status-countdown {
+      font-size: 11px;
+      letter-spacing: .5px;
+      text-align: center;
+      color: rgba(232, 69, 69, .8)
+    }
+
+    .status-countdown strong {
+      font-variant-numeric: tabular-nums;
+      font-size: 13px;
+      color: #e84545
+    }
+
+    .status-hours-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 10px;
+      color: rgba(255,255,255,.28);
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      margin-top: 2px
+    }
+
+    .status-hours-row span {
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loader">
+    <div class="loader-crown">&#x1F451;</div>
+    <div class="loader-title">SAMRAT TAWA FRY</div>
+    <div class="loader-sub">By Adil &amp; MMD</div>
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+  <div class="ambient"></div>
+  <canvas id="particles"></canvas>
+  <section class="hero">
+    <div class="hero-badge">&#x1F451; Premium Halal Non-Veg Restaurant</div>
+    <h1 class="hero-name">SAMRAT<br>TAWA FRY</h1>
+    <div class="hero-owners">By Adil &amp; MMD</div>
+    <p class="hero-tagline">The Real Taste of Nonveg &middot; Amdawadi</p>
+    <div class="divider">
+      <div class="divider-line"></div><span class="divider-gem">&#10022;</span>
+      <div class="divider-line"></div>
+    </div>
+    <div class="hero-badges">
+      <div class="h-badge">
+        <div class="h-badge-dot dot-halal"></div>Halal Certified
+      </div>
+      <div class="h-badge">
+        <div class="h-badge-dot dot-party"></div>Party Orders Welcome
+      </div>
+      <div class="h-badge">
+        <div class="h-badge-dot dot-addr"></div>Karjan, Vadodara
+      </div>
+    </div>
+    <div>
+      <a href="https://www.instagram.com/palej_samrat_tawafry?igsh=MXJ5Z2hyYTUxdWdtMw==" target="_blank" rel="noopener"
+        class="ig-hero-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg>
+        Follow @palej_samrat_tawafry
+      </a>
+    </div>
+
+    <!-- Live Business Status Widget -->
+    <div class="status-widget" id="statusWidget">
+      <div class="status-badge" id="statusBadge">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Checking...</span>
+      </div>
+      <div id="statusSub"></div>
+      <div id="statusCountdown"></div>
+      <div class="status-hours-row">
+        <span>&#9788; 11:30 AM &ndash; 4:30 PM</span>
+        <span style="color:rgba(212,175,55,.2)">&#9670;</span>
+        <span>&#9788; 5:30 PM &ndash; 12:30 AM</span>
+      </div>
+    </div>
+  </section>
+
+  <a href="https://www.instagram.com/palej_samrat_tawafry?igsh=MXJ5Z2hyYTUxdWdtMw==" target="_blank" rel="noopener"
+    class="ig-floating-widget" title="Follow us on Instagram">
+    <div class="ig-floating-label">Follow Us</div>
+    <div class="ig-floating-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff">
+        <path
+          d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+      </svg>
+    </div>
+  </a>
+
+  <nav class="nav-wrapper">
+    <div class="cat-scroll" id="catNav"></div>
+  </nav>
+  <div class="search-wrap">
+    <span class="search-icon">&#x1F50D;</span>
+    <input class="search-input" id="searchInput" type="text" placeholder="Search any dish..." autocomplete="off">
+  </div>
+  <div id="searchResults"></div>
+  <main class="menu-main" id="menuMain"></main>
+  <footer class="footer">
+    <div class="footer-logo">SAMRAT TAWA FRY</div>
+    <div class="footer-owners">By Adil &amp; MMD</div>
+    <p class="footer-addr">Beside Indian Oil Pump, Sansroad<br>Ta. Karjan, Di. Vadodara</p>
+    <div>
+      <a href="https://www.instagram.com/palej_samrat_tawafry?igsh=MXJ5Z2hyYTUxdWdtMw==" target="_blank" rel="noopener"
+        class="footer-ig-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg>
+        Follow @palej_samrat_tawafry on Instagram
+      </a>
+    </div>
+    <p class="footer-note">&#9733; All dishes made fresh to order &#9733;<br>For family dishes, half/full order as
+      required. Prices may vary.</p>
+    <div class="footer-credits">By Adil &amp; MMD</div>
+  </footer>
+  <button id="scrollTop" aria-label="Scroll to top">&#x2191;</button>
+  <script>
+    /* ── Live Business Hours Logic (IST / Asia/Kolkata) ── */
+    (function () {
+      var badge   = document.getElementById('statusBadge');
+      var dot     = document.getElementById('statusDot');
+      var text    = document.getElementById('statusText');
+      var sub     = document.getElementById('statusSub');
+      var countdown = document.getElementById('statusCountdown');
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function fmtCountdown(totalSec) {
+        var h = Math.floor(totalSec / 3600);
+        var m = Math.floor((totalSec % 3600) / 60);
+        var s = totalSec % 60;
+        if (h > 0) return pad(h) + 'h ' + pad(m) + 'm ' + pad(s) + 's';
+        return pad(m) + 'm ' + pad(s) + 's';
+      }
+
+      function toMinutes(h, m, s) { return h * 3600 + m * 60 + s; }
+
+      function tick() {
+        /* Get current IST time */
+        var now = new Date();
+        var istStr = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour12: false,
+          hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        /* parse HH:MM:SS */
+        var parts = istStr.split(':').map(Number);
+        var h = parts[0] % 24;  /* handle midnight edge (24 -> 0) */
+        var m = parts[1];
+        var s = parts[2];
+        var nowSec = toMinutes(h, m, s);
+
+        /* Session boundaries in seconds from midnight */
+        var S1_START = toMinutes(11, 30, 0);   /* 11:30:00 */
+        var S1_END   = toMinutes(16, 29, 59);  /* 16:29:59 */
+        var BREAK_END = toMinutes(17, 30, 0);  /* 17:30:00 */
+        var S2_END   = toMinutes(24, 29, 59);  /* 24:29:59 = next-day 00:29:59 */
+        /* Evening session 17:30 – midnight-onwards treated as > 17:30 OR < 0:30 */
+
+        var isSession1 = (nowSec >= S1_START && nowSec <= S1_END);
+        /* Evening: 17:30:00 to 23:59:59  OR  00:00:00 to 00:29:59 */
+        var isSession2 = (nowSec >= BREAK_END && nowSec <= 86399) || (nowSec >= 0 && nowSec < toMinutes(0, 30, 0));
+        var isBreak    = (nowSec >= toMinutes(16, 30, 0) && nowSec < BREAK_END);
+
+        if (isSession1 || isSession2) {
+          /* OPEN */
+          badge.className = 'status-badge open';
+          dot.className   = 'status-dot dot-open';
+          text.textContent = '\u25CF OPEN NOW';
+          sub.className   = 'status-sub open-msg';
+          sub.textContent  = 'We\u2019re serving delicious food.';
+          countdown.textContent = '';
+        } else if (isBreak) {
+          /* CLOSED – break between sessions */
+          badge.className = 'status-badge closed';
+          dot.className   = 'status-dot dot-closed';
+          text.textContent = '\u25CF CLOSED';
+          sub.className   = 'status-sub';
+          sub.textContent  = 'Reopens at 5:30 PM';
+          var secUntil = BREAK_END - nowSec;
+          countdown.className = 'status-countdown';
+          countdown.innerHTML = 'Opens in <strong>' + fmtCountdown(secUntil) + '</strong>';
+        } else {
+          /* CLOSED – night / early morning (00:30 – 11:29:59) */
+          badge.className = 'status-badge closed';
+          dot.className   = 'status-dot dot-closed';
+          text.textContent = '\u25CF CLOSED';
+          sub.className   = 'status-sub';
+          sub.textContent  = 'Opens today at 11:30 AM';
+          var secUntil2;
+          if (nowSec >= toMinutes(0, 30, 0)) {
+            secUntil2 = S1_START - nowSec;
+          } else {
+            /* midnight to 00:29:59 */
+            secUntil2 = S1_START + (86400 - nowSec);
+            sub.textContent = 'Opens today at 11:30 AM';
+          }
+          countdown.className = 'status-countdown';
+          countdown.innerHTML = 'Opens in <strong>' + fmtCountdown(secUntil2) + '</strong>';
+        }
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+  </script>
+  <script>
+    var CATS = [{ id: "starters", name: "Starters", emoji: "🍢", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍢 Starters</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">8 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">French Fries</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chocolate Chaat</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>180</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Peanut Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Fingers</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chilli Chicken</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Seekh Kebab</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>180</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Fish Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div></div>" },
+    { id: "soups", name: "Soups", emoji: "🍜", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍜 Soups</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">8 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Manchurian Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>130</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Manchau Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Hot and Shower Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Royal Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Clear Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Garlic Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Zinger Soup</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div></div>" },
+    { id: "papad-salad", name: "Papad & Salad", emoji: "🥗", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🥗 Papad & Salad</h2><div class=\"cat-heading-line\"></div></div><div class=\"sub-cat-label\"><span>Papad Ka Swad</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Rosted Papad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>20</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Fry Papad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>20</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Masala Papad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>30</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Nagli Papad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>30</span>\n</div></div><div class=\"sub-cat-label\"><span>Salad</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Green Salad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>60</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Curd Salad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Tameta Salad</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>40</span>\n</div></div>" },
+    { id: "spe-starters", name: "Spe. Starters", emoji: "⭐", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">⭐ Spe. Starters</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">13 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Lasaniya Chana</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Nalinbarra</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Matka Mutton Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Arebiyan Mutton Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Tandoori Chap</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Arebiyan Chap Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Kashmiri Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Supreem Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Sewan Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Arebiyan Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Pery Pery Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Golden Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Alfa Leg</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div></div>" },
+    { id: "tandoor", name: "Tandoor Ka Swad", emoji: "🔥", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🔥 Tandoor Ka Swad</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">15 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Matka Chicken</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>270</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tandoori</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>550</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tangdi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>480</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tangdi Kabab</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>520</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Seek Kabab</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>260</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Banjara Tikka</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>750</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Suprim Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Heydrabadi Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>170</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Lemon Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>170</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Reshmi Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Malai Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>170</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Achari Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>170</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Arebiyan Tangdi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div></div>" },
+    { id: "chi-chinese", name: "Chicken Chinese Dry", emoji: "🍗", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍗 Chicken Chinese Dry</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">16 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Lollypop Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Lollypop Chatpata</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Afghani Lollypop</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Lollypop Gravy</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Chilly Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Manchurian Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Manchurian Gravy</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Stick Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Crispy Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Sejwan Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Singapuri Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. 65 Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Lebnis Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Turkish Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Cracks</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Kurkure Creamy</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div></div>" },
+    { id: "chi-moghlai", name: "Chicken Moghlai", emoji: "🍛", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍛 Chicken Moghlai</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">19 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Butter Chi. Moghlai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Handi Moghlai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Chatpata Moghlai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Afghani Moghlai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Moghlai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Shahimalai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Kolhapuri</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Lasuni</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Chingari</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Angar Ke Sholey</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Sizzler Angar</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Mumtaj Curry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Barra</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Reshmi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Kaikesa</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Achari</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Kasturi Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>320</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Stue</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Hariyali</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div></div>" },
+    { id: "mutton-moghlai", name: "Mutton Moghlai", emoji: "🐑", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🐑 Mutton Moghlai</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">8 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Moghlai Mutton Handi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>380</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Kadhai</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Afghani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Roganjosh</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>380</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Makhni Handi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Barra</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>600</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Dabba Gosh</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Kaala Mari</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div></div>" },
+    { id: "mutton-tawa", name: "Mutton Tawa", emoji: "🥩", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🥩 Mutton Tawa</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">14 items</div><div class=\"items-grid\"><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Arabian</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>850</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Shahi</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>900</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Haidrabadi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>380</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chap Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chap Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Bombay Chap</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Bombay Mutton</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>380</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Bhuna</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>380</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Gurda Kaleji Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Bowl</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Lasaniya</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Angara</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>400</span>\n</div></div>" },
+    { id: "chi-bone", name: "Chicken With Bone", emoji: "🍖", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍖 Chicken With Bone</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">9 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tandoori (Dry)</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;200</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;350</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tandoori Masala</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;220</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;400</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tangadi Masala</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;220</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;400</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tawa Masala</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;220</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;400</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tikka Masala</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;220</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;400</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Lasaniya</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;220</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;400</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Handi</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;250</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;450</span></div></div>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Lolahpuri</div>\n      \n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;250</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;450</span></div></div>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Bone Bowl</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <div class=\"hf-price\"><div class=\"hf-labels\">Half&nbsp;|&nbsp;Full</div><div class=\"hf-vals\"><span class=\"hf-val\">&#x20B9;350</span><span class=\"hf-sep\">|</span><span class=\"hf-val\">&#x20B9;550</span></div></div>\n</div></div>" },
+    { id: "chi-boneless", name: "Chicken Boneless", emoji: "🍗", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍗 Chicken Boneless</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">16 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Angara</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Patiala Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Tikka Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Silver</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Amritsari</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Lahawab</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Bhuna Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Handi Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Reshmi Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Haryali</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Laziz</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Ajmeri</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Nizami</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Khima Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Butter Chicken</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>480</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Rasida</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div></div>" },
+    { id: "family", name: "Family Dishes", emoji: "👨‍角👩‍👧", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">👨‍角👩‍👧 Family Dishes</h2><div class=\"cat-heading-line\"></div></div><div class=\"sub-cat-label\"><span>Tawa Spe. Family Dishes - Regular</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Arabian</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Kashmiri Spe.</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Murgmusallam</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Navabi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Nizami</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Spe. Samarat</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div></div><div class=\"sub-cat-label\"><span>Tawa Spe. Family Item - Large</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Arabian</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>900</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Kashmiri Spe.</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>900</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Murgmusallam</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>900</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Navabi</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>900</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Nizami</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>900</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Spe. Samarat</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>1100</span>\n</div></div>" },
+    { id: "biryani", name: "Tawa Biryani", emoji: "🍚", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍚 Tawa Biryani</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">10 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Seek Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Tawa Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Zinga Biryani Tawa</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Biryani Tawa</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Hajdrabadi Tawa</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Haidrabadi Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Haidrabadi Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Zinga Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Anda Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Leg Biryani</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div></div>" },
+    { id: "tawa-rice", name: "Tawa Rice", emoji: "🍛", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍛 Tawa Rice</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">8 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Arebian Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>500</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Tawa Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>500</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Tikka Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>500</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Bihuna Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>500</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Khima Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>500</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Bhuna Rice</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>700</span>\n</div><div class=\"menu-card special\">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mutton Arebiyan Rice</div>\n      <div class=\"card-badges\"><span class=\"badge-special\">&#9733; Special</span></div>\n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>700</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Eggs Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div></div>" },
+    { id: "basmati", name: "Basmati Rice", emoji: "🍚", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍚 Basmati Rice</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">11 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Fry Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Sejwan Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>140</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Singapuri Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>160</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Hongkon Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>160</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Garlic Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>170</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Zinjer Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>170</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chi. Manchurian Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>180</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Chopal Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Bhel Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>200</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Triple Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>160</span>\n</div></div>" },
+    { id: "seafood", name: "Sea Food", emoji: "🦐", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🦐 Sea Food</h2><div class=\"cat-heading-line\"></div></div><div class=\"sub-cat-label\"><span>Fish</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Plater Fish</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paplet</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Fish Tikka</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>430</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Basha Fish Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>430</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Basha Fish Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Jira Fish</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Rosted Jinga</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Jinga Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Jinga Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>350</span>\n</div></div><div class=\"sub-cat-label\"><span>Prawns & Crab</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Prawns</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Prawns Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Prawns Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price market\">Market<br>Price</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Crab</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Crab Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Crab Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>450</span>\n</div></div>" },
+    { id: "punjabi", name: "Punjabi Food", emoji: "🌿", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🌿 Punjabi Food</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">12 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Chilly Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Tikka Dry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>300</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Angara Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>280</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Bhurji</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>190</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Butter Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Kaju Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chana Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>130</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Sey Tamatar</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>130</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Dal Fried</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Mix Veg.</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Gaju Makhaniwala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>250</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Vej. Jaypuri</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>220</span>\n</div></div>" },
+    { id: "anda", name: "Anda Ka Fanda", emoji: "🥚", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🥚 Anda Ka Fanda</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">11 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Boil Masala Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Egg Bhurji</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Egg Boil Khima</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Egg Khima</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Egg Curry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>140</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Omlet</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Laziza Omlet</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Half Fry</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Half Fry Masala</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Bombay Spe. Anda</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>180</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Bombay Sp. Anda Khima</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>180</span>\n</div></div>" },
+    { id: "plain-rice", name: "Plain Rice", emoji: "🍚", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍚 Plain Rice</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">3 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Plane Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>50</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Jira Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Masala Rice</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>140</span>\n</div></div>" },
+    { id: "noodles", name: "Noodles", emoji: "🍝", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🍝 Noodles</h2><div class=\"cat-heading-line\"></div></div><div class=\"sub-cat-label\"><span>Non-Veg Noodles</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chicken Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Singapuri Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Hakka Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Sejwan Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>150</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon nonveg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Egg Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>140</span>\n</div></div><div class=\"sub-cat-label\"><span>Veg Noodles</span></div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Aloo Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>60</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Veg. Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Paneer Noodles</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>120</span>\n</div></div>" },
+    { id: "roti", name: "Roti / Bread", emoji: "🫓", html: "<div class=\"cat-heading\"><h2 class=\"cat-heading-text\">🫓 Roti / Bread</h2><div class=\"cat-heading-line\"></div></div><div class=\"item-count\">8 items</div><div class=\"items-grid\"><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Chapati Roti</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>15</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Tandoori Roti</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>25</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Butter Roti</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>40</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Butter Paratha</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>40</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Butter Naan</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>40</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Plane Kulcha</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>40</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Cheese Paratha</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>100</span>\n</div><div class=\"menu-card \">\n  <div class=\"card-left\">\n    <div class=\"type-icon veg\"></div>\n    <div class=\"card-info\">\n      <div class=\"card-name\">Garlic Naan</div>\n      \n    </div>\n  </div>\n  <span class=\"card-price\"><span class=\"rupee\">&#x20B9;</span>60</span>\n</div></div>" }];
+
+    var cN = document.getElementById('catNav'), mM = document.getElementById('menuMain');
+    CATS.forEach(function (cat, i) {
+      var b = document.createElement('button'); b.className = 'cat-btn' + (i === 0 ? ' active' : ''); b.id = 'tab-' + cat.id; b.innerHTML = cat.emoji + ' ' + cat.name; b.addEventListener('click', function () { sw(cat.id); }); cN.appendChild(b);
+      var s = document.createElement('section'); s.className = 'cat-section' + (i === 0 ? ' active' : ''); s.id = 'sec-' + cat.id; s.innerHTML = cat.html; mM.appendChild(s);
+    });
+
+    function sw(id) {
+      document.querySelectorAll('.cat-btn').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelectorAll('.cat-section').forEach(function (s) { s.classList.remove('active'); });
+      document.getElementById('tab-' + id).classList.add('active'); document.getElementById('sec-' + id).classList.add('active');
+      document.getElementById('tab-' + id).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      document.getElementById('searchInput').value = ''; document.getElementById('searchResults').classList.remove('visible'); mM.style.display = '';
+      window.scrollTo({ top: document.querySelector('.nav-wrapper').getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+    }
+
+    var si = document.getElementById('searchInput'), sr = document.getElementById('searchResults');
+    si.addEventListener('input', function () {
+      var q = this.value.trim().toLowerCase();
+      if (!q) { sr.classList.remove('visible'); sr.innerHTML = ''; mM.style.display = ''; return; }
+      mM.style.display = 'none';
+      var cards = Array.from(document.querySelectorAll('.menu-card'));
+      var matched = cards.filter(function (c) { var n = c.querySelector('.card-name'); return n && n.textContent.toLowerCase().indexOf(q) >= 0; });
+      if (!matched.length) { sr.innerHTML = '<div style="text-align:center;padding:40px;color:#777;font-size:14px;">No dishes found</div>'; }
+      else { sr.innerHTML = '<div class="item-count">' + matched.length + ' result' + (matched.length > 1 ? 's' : '') + ' found</div><div class="items-grid">' + matched.map(function (c) { return c.outerHTML; }).join('') + '</div>'; }
+      sr.classList.add('visible');
+    });
+
+    var cv = document.getElementById('particles'), ctx = cv.getContext('2d');
+    function rsz() { cv.width = window.innerWidth; cv.height = window.innerHeight; } rsz(); window.addEventListener('resize', rsz);
+    var pts = []; for (var i = 0; i < 55; i++)pts.push({ x: Math.random() * cv.width, y: Math.random() * cv.height, r: Math.random() * 1.8 + .4, vx: (Math.random() - .5) * .25, vy: -Math.random() * .4 - .15, a: Math.random() * .45 + .05, da: (Math.random() > .5 ? 1 : -1) * .002 });
+    (function draw() { ctx.clearRect(0, 0, cv.width, cv.height); pts.forEach(function (p) { p.x += p.vx; p.y += p.vy; p.a += p.da; if (p.a > .55 || p.a < .04) p.da *= -1; if (p.y < -10) { p.y = cv.height + 10; p.x = Math.random() * cv.width; } if (p.x < -10 || p.x > cv.width + 10) p.x = Math.random() * cv.width; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(212,175,55,' + p.a + ')'; ctx.fill(); }); requestAnimationFrame(draw); })();
+
+    window.addEventListener('load', function () { setTimeout(function () { document.getElementById('loader').classList.add('out'); }, 1500); });
+
+    var stb = document.getElementById('scrollTop');
+    window.addEventListener('scroll', function () { stb.classList.toggle('show', window.scrollY > 350); }, { passive: true });
+    stb.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    var tx = 0;
+    document.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', function (e) { var d = tx - e.changedTouches[0].clientX; if (Math.abs(d) < 80) return; var ids = CATS.map(function (c) { return c.id; }); var cur = document.querySelector('.cat-section.active'); if (!cur) return; var idx = ids.indexOf(cur.id.replace('sec-', '')); if (d > 0 && idx < ids.length - 1) sw(ids[idx + 1]); else if (d < 0 && idx > 0) sw(ids[idx - 1]); }, { passive: true });
+  </script>
+</body>
+
+</html>
